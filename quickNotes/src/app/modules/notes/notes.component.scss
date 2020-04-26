@@ -6,9 +6,9 @@
     z-index: 1; 
     top: 0; 
     left: 0;
-    background-color: #111;
     overflow-x: hidden; 
-    padding-top: 20px;
+    // padding: 20px 8px;
+    border-right: 1px solid #ccc;
   }
 
   .sidenav a {
@@ -27,11 +27,36 @@
     margin-left: 300px; 
     padding: 0px 10px;
   }
-  
+
+ .sidebar-top-heading{
+    h2{
+        margin: 0;
+        padding: 0;
+    }
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  }
+
+  .push {
+    margin-left: auto;
+  }
+
+ .note-add-btn {
+    background: #ccff7e;
+    outline: none;
+    border: 1px solid #37bc37;
+    padding: 2px;
+    cursor: pointer;
+    fa-plus{
+      color: green;
+    }
+  }
+
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-    .main {
-        margin-left: 0px;
-    }
+    // .main {
+    //     margin-left: 0px;
+    // }
   }
