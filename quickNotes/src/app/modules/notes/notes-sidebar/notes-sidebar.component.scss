@@ -108,6 +108,14 @@
 
 .is-selected {
   background-color: cornsilk;
+  &.is-adding{
+    background-color: palegreen !important;
+    opacity: 1 !important;
+  }
+}
+.is-adding{
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .sidebar-top-heading{
@@ -132,5 +140,8 @@ padding: 8px;
   cursor: pointer;
   .fa-plus{
     color: green;
+  }
+  &[disabled]{
+    opacity: 0.6;
   }
 }

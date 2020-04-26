@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { NotesSidebarService } from './notes-sidebar.service';
+import { EventBusService } from 'src/app/shared/services/event-bus.service';
 
 @Component({
   selector: 'notes-sidebar',
@@ -10,6 +11,7 @@ import { NotesSidebarService } from './notes-sidebar.service';
 export class NotesSidebarComponent implements OnInit {
   public notesList = []
   public selectedNoteItem = null;
+  public isAdding = false;
 
   private defaultNoteData = {
     id: Math.random(),
@@ -21,16 +23,35 @@ export class NotesSidebarComponent implements OnInit {
 
   @Output() selectedNoteItemChange = new EventEmitter();
 
-  constructor(private dataService: NotesSidebarService) { }
+  constructor(private dataService: NotesSidebarService,
+    private eventBusService: EventBusService) { }
 
   ngOnInit(): void {
-    this.fetchNotesList();
+    this.registerEvents();
+    this.fetchNotesList(true);
   }
 
-  private fetchNotesList() {
+  private registerEvents() {
+    this.eventBusService.on('saved', (data) => {
+      this.fetchNotesList();
+      this.isAdding = false;
+    })
+
+    this.eventBusService.on('cancel', (data) => {
+      if (this.isAdding) {
+        this.notesList.splice(0, 1)
+        this.isAdding = false;
+        this.onNoteItemClick(this.notesList[0]);
+      } else {
+        this.fetchNotesList(true);
+      }
+    })
+  }
+
+  private fetchNotesList(reset = false) {
     this.dataService.getAllNotesList().subscribe((data) => {
       this.notesList = data;
-      if (data.length) {
+      if (data.length && reset) {
         this.onNoteItemClick(data[0]);
       }
     });
@@ -43,11 +64,12 @@ export class NotesSidebarComponent implements OnInit {
 
   public removeItem(id: number) {
     this.dataService.deleteNote(id).subscribe(() => {
-      this.fetchNotesList();
+      this.fetchNotesList(true);
     })
   }
 
   public createNote() {
+    this.isAdding = true;
     const emptyNote = {
       ...this.defaultNoteData,
       createdOn: (new Date()).toISOString(),

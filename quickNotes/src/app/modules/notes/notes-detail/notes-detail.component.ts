@@ -1,27 +1,38 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { NotesDetailService } from './notes-detail.service';
+import { EventBusService } from './../../../shared/services/event-bus.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'notes-detail',
   templateUrl: './notes-detail.component.html',
   styleUrls: ['./notes-detail.component.scss'],
 })
-export class NotesDetailComponent implements OnInit, OnChanges {
+export class NotesDetailComponent implements OnInit {
   @Input() noteDetails;
 
-  constructor() { }
+  constructor(
+    private eventBusService: EventBusService,
+    private detailDataService: NotesDetailService
+  ) { }
 
   ngOnInit(): void {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+
+  public save() {
+    this.detailDataService.saveNote(this.noteDetails).subscribe(() => {
+      this.eventBusService.emit({
+        name: 'saved',
+        value: this.noteDetails
+      })
+    }
+    );
   }
 
   public cancel() {
-
-  }
-
-  public save() {
-
+    this.eventBusService.emit({
+      name: 'cancel',
+      value: ''
+    })
   }
 }
