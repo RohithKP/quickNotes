@@ -7,16 +7,22 @@
 <div class="sidebar-container">
     <div class="input-container">
         <i class="fa fa-search icon"></i>
-        <input class="input-field" type="text" placeholder="Type something" name="usrnm">
+        <input class="input-field" type="text" placeholder="Type something" name="search" [(ngModel)]="searchTerm">
     </div>
     <section class="scroll-list-item">
         <div class="list-item" *ngFor="let note of notesList" (click)="onNoteItemClick(note)"
             [ngClass]="{'is-selected': note.id === this.selectedNoteItem?.id, 'is-adding': isAdding}">
             <div class="sidebar-title-wrap">
-                <div class="sidebar-title">{{note.title || 'Untitled' }}</div>
+                <div class="sidebar-title">
+                    <span *ngIf="note.title" innerHTML="{{ note.title | highlight : searchTerm}}"></span>
+                    <span *ngIf="!note.title">Untitled</span>
+                </div>
                 <span [hidden]="note.id === this.selectedNoteItem?.id && isAdding" (click)="removeItem(note.id)"><i class="fa fa-trash"></i></span>
             </div>
-            <div class="sidebar-content">{{note.content || 'No additional data'}}</div>
+            <div class="sidebar-content">
+                <span *ngIf="note.content" innerHTML="{{ note.content | highlight : searchTerm}}"></span>
+                <span *ngIf="!note.content">No additional content</span>
+            </div>
             <div class="timestamp">{{note.updatedOn | amUtc | amTimeAgo}}</div>
         </div>
     </section>

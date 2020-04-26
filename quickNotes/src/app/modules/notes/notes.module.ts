@@ -1,3 +1,4 @@
+import { HighlightSearch } from './../../shared/pipes/highlight.pipe';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,7 +11,7 @@ import { NotesDetailComponent } from './notes-detail/notes-detail.component';
 
 
 @NgModule({
-  declarations: [NotesComponent, NotesSidebarComponent, NotesDetailComponent],
+  declarations: [NotesComponent, NotesSidebarComponent, NotesDetailComponent, HighlightSearch],
   imports: [
     CommonModule,
     NotesRoutingModule,
@@ -20,6 +21,7 @@ import { NotesDetailComponent } from './notes-detail/notes-detail.component';
         'm': 59
       }
     })
-  ]
+  ],
+  providers: []
 })
 export class NotesModule { }

@@ -12,7 +12,8 @@ export class NotesSidebarComponent implements OnInit {
   public notesList = []
   public selectedNoteItem = null;
   public isAdding = false;
-
+  public searchTerm = '';
+  
   private defaultNoteData = {
     id: Math.random(),
     title: "",
