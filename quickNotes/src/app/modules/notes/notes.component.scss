@@ -9,6 +9,7 @@
     overflow-x: hidden; 
     // padding: 20px 8px;
     border-right: 1px solid #ccc;
+    background: #f4f4f4;
   }
 
   .sidenav a {
@@ -28,11 +29,24 @@
     padding: 0px 10px;
     height: 100%;
   }
-
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-    // .main {
-    //     margin-left: 0px;
-    // }
+  .toggleBtn{
+    display: none;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .sidenav{
+      left: -300px;
+      &.is-open{
+        left: 0 !important;
+      }
+    }
+    .main {
+      margin-left: 0;
+      &.is-open{
+        margin-left: 300px;
+      }
+    }
+    .toggleBtn{
+      display: block;
+    }
   }

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotesComponent implements OnInit {
   public selectedNoteItem;
+  public isOpen = false;
 
   constructor() { }
 

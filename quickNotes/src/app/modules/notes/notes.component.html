@@ -1,9 +1,10 @@
 <!-- Side navigation -->
-<div class="sidenav">
+<div class="sidenav" [ngClass]="{'is-open': isOpen}">
     <notes-sidebar (selectedNoteItemChange)="selectedNoteItem = $event"></notes-sidebar>
 </div>
 
 <!-- Page content -->
-<div class="main">
+<div class="main" [ngClass]="{'is-open': isOpen}">
+    <button (click)="isOpen = !isOpen" class="toggleBtn"><i class="fa fa-hamburger"></i></button>
     <notes-detail [(noteDetails)]="selectedNoteItem"></notes-detail>
 </div>
