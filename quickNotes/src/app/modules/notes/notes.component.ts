@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notes.component.scss']
 })
 export class NotesComponent implements OnInit {
+  public selectedNoteItem;
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

@@ -1,13 +1,23 @@
+<div class="sidebar-top-heading">
+    <h2 class="sidebar-heading">All Notes</h2>
+    <span class="push">
+        <button class="note-add-btn" (click)="createNote()"><i class="fa fa-plus"></i> New Note</button>
+    </span>
+</div>
 <div class="sidebar-container">
     <div class="input-container">
         <i class="fa fa-search icon"></i>
         <input class="input-field" type="text" placeholder="Type something" name="usrnm">
     </div>
     <section class="scroll-list-item">
-        <div class="list-item" *ngFor="let note of notesList">
-            <div class="sidebar-title">{{note.title}}</div>
-            <div class="sidebar-content">{{note.content}}</div>
-            <div class="timestamp">{{note.updatedOn | amTimeAgo}}</div>
+        <div class="list-item" *ngFor="let note of notesList" (click)="onNoteItemClick(note)"
+            [ngClass]="{'is-selected': note.id === this.selectedNoteItem?.id}">
+            <div class="sidebar-title-wrap">
+                <div class="sidebar-title">{{note.title || 'Untitled' }}</div>
+                <span (click)="removeItem(note.id)"><i class="fa fa-trash"></i></span>
+            </div>
+            <div class="sidebar-content">{{note.content || 'No additional data'}}</div>
+            <div class="timestamp">{{note.updatedOn | amUtc | amTimeAgo}}</div>
         </div>
     </section>
 </div>

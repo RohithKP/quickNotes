@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MomentModule } from 'ngx-moment';
@@ -13,7 +14,12 @@ import { NotesDetailComponent } from './notes-detail/notes-detail.component';
   imports: [
     CommonModule,
     NotesRoutingModule,
-    MomentModule
+    FormsModule,
+    MomentModule.forRoot({
+      relativeTimeThresholdOptions: {
+        'm': 59
+      }
+    })
   ]
 })
 export class NotesModule { }
