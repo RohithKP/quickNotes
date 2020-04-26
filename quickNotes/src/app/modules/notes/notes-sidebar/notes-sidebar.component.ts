@@ -13,7 +13,7 @@ export class NotesSidebarComponent implements OnInit {
   public selectedNoteItem = null;
   public isAdding = false;
   public searchTerm = '';
-  
+
   private defaultNoteData = {
     id: Math.random(),
     title: "",
@@ -23,6 +23,7 @@ export class NotesSidebarComponent implements OnInit {
   }
 
   @Output() selectedNoteItemChange = new EventEmitter();
+  selectedNoteItemMaster: any;
 
   constructor(private dataService: NotesSidebarService,
     private eventBusService: EventBusService) { }
@@ -44,7 +45,10 @@ export class NotesSidebarComponent implements OnInit {
         this.isAdding = false;
         this.onNoteItemClick(this.notesList[0]);
       } else {
-        this.fetchNotesList(true);
+        // this.fetchNotesList(true);
+        const index = this.notesList.findIndex(item => item.id === data.id);
+        this.notesList[index] = this.selectedNoteItemMaster;
+        this.onNoteItemClick(this.notesList[index]);
       }
     })
   }
@@ -59,6 +63,7 @@ export class NotesSidebarComponent implements OnInit {
   }
 
   public onNoteItemClick(note) {
+    this.selectedNoteItemMaster = { ...note };
     this.selectedNoteItem = note;
     this.selectedNoteItemChange.emit(note);
   }

@@ -1,12 +1,14 @@
 <ng-container *ngIf="noteDetails">
-    <textarea placeholder="Title" class="notes-title-textarea" [(ngModel)]="noteDetails.title"
-        maxlength="250"></textarea>
-    <textarea placeholder="Enter you notes here" class="notes-textarea" [(ngModel)]="noteDetails.content"
-        maxlength="500"></textarea>
-    <div class="button-group-right">
-        <button class="note-cancel-btn" (click)="cancel()">Cancel</button>
-        <button class="note-save-btn" (click)="save()">Save</button>
-    </div>
+    <form #noteForm="ngForm">
+        <textarea placeholder="Title" class="notes-title-textarea" [(ngModel)]="noteDetails.title"
+            maxlength="250" name="title"></textarea>
+        <textarea placeholder="Enter you notes here" class="notes-textarea" [(ngModel)]="noteDetails.content"
+            maxlength="500"  name="conent"></textarea>
+        <div class="button-group-center" *ngIf="noteForm.form.dirty">
+            <button class="note-cancel-btn" (click)="cancel()">Cancel</button>
+            <button class="note-save-btn" (click)="save()">Save</button>
+        </div>
+    </form>
 </ng-container>
 <ng-container *ngIf="!noteDetails">
     <div>Loading...</div>

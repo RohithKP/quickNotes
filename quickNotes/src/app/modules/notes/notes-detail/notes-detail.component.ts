@@ -32,7 +32,7 @@ export class NotesDetailComponent implements OnInit {
   public cancel() {
     this.eventBusService.emit({
       name: 'cancel',
-      value: ''
+      value: this.noteDetails
     })
   }
 }

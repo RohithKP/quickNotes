@@ -1,3 +1,6 @@
+form {
+    height: 100%;
+}
 .notes-title-textarea {
     padding-bottom: 4px;
     outline: none;
@@ -25,9 +28,9 @@
     height: calc(100% - 130px);
 }
 
-.button-group-right{
+.button-group-center{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .note-save-btn{
